@@ -1,0 +1,13 @@
+<h2><%= @event.name %></h2>
+<h2><%= @event.place %></h2>
+<h2><%= @event.start_at %></h2>
+<h2><%= @event.end_at %></h2>
+<h2><%= @event.start_at %></h2>
+<h2><%= @event.station.name %></h2>
+
+
+
+<%= link_to "Delete", "/events/#{@event.id}", {method: :delete, class: "btn btn-danger"} %>
+<%= link_to "Edit","/events/#{@event.id}/edit", class: "btn btn-success" %>
+
+

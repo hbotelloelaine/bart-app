@@ -1,0 +1,5 @@
+<h4><%= @station.name %></h4>
+
+<% @station.events.each do |event| %>
+<%= event.name %>
+<% end %>

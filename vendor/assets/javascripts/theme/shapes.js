@@ -192,37 +192,37 @@ $(document).ready(function() {
 	/*============================================
 	Project Preview
 	==============================================*/
-	$('.project-item').click(function(e){
-		e.preventDefault();
+	// $('.project-item').click(function(e){
+	// 	e.preventDefault();
 		
-		if($(this).hasClass('active')){return false;}
-		$('.project-item').removeClass('active');
+	// 	if($(this).hasClass('active')){return false;}
+	// 	$('.project-item').removeClass('active');
 		
 		
-		var elem =$(this);
+	// 	var elem =$(this);
 		
-		$('html,body').scrollTo(0,'#preview-scroll',
-			{
-				gap:{y:-120},
-				animation:{
-					duration:600
-				}
-		});
+	// 	$('html,body').scrollTo(0,'#preview-scroll',
+	// 		{
+	// 			gap:{y:-120},
+	// 			animation:{
+	// 				duration:600
+	// 			}
+	// 	});
 			
-		$('#preview-loader').addClass('show');
+	// 	$('#preview-loader').addClass('show');
 		
-		if($('#project-preview').hasClass('open')){
-			closePreview();
-			elem.addClass('active');
-			setTimeout(function(){
-				buildPreview(elem);
-			},1000);
-		}else{
-			elem.addClass('active');
-			buildPreview(elem);
-		}
+	// 	if($('#project-preview').hasClass('open')){
+	// 		closePreview();
+	// 		elem.addClass('active');
+	// 		setTimeout(function(){
+	// 			buildPreview(elem);
+	// 		},1000);
+	// 	}else{
+	// 		elem.addClass('active');
+	// 		buildPreview(elem);
+	// 	}
 	
-	});
+	// });
 	
 	$('.close-preview').click(function(e){
 		e.preventDefault();
