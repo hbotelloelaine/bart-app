@@ -126,9 +126,9 @@
 		<!-- ==============================================
 		SCRIPTS
 		=============================================== -->
-		 <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+		
 		  
-			   <script>
+			<!--   <script>
 			  // function initialize() {
 			  //   var mapOptions = {
 			  //     zoom: 10,
@@ -208,31 +208,33 @@
 //   });
 // }
 // }
-    var marker;
-
-function initMap() {
-	var map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 10,
-		center: {lat: 38.0188962, lng: -121.9471977}, 
-		mapTypeId: google.maps.MapTypeId.ROADMAP
-	});
 
 
-	var stationsArray = <%= raw @stations %>;
-	for(var i=0; i < stationsArray.length; i++) {
-		var station = stationsArray[i];
-		var latitude = parseFloat(stationsArray[i][0]);
-		var longitude = parseFloat(stationsArray[i][1]);
-		console.log(latitude);
-		console.log(longitude);
+//     var marker;
+
+// function initMap() {
+// 	var map = new google.maps.Map(document.getElementById('map'), {
+// 		zoom: 10,
+// 		center: {lat: 38.0188962, lng: -121.9471977}, 
+// 		mapTypeId: google.maps.MapTypeId.ROADMAP
+// 	});
 
 
-			var marker = new google.maps.Marker({
-				position: {lat: latitude, lng: longitude},
-				map: map
-			});
-	}
-}
+// 	var stationsArray = <%= raw @stations_map %>;
+// 	for(var i=0; i < stationsArray.length; i++) {
+// 		var station = stationsArray[i];
+// 		var latitude = parseFloat(stationsArray[i][0]);
+// 		var longitude = parseFloat(stationsArray[i][1]);
+// 		console.log(latitude);
+// 		console.log(longitude);
+
+
+// 			var marker = new google.maps.Marker({
+// 				position: {lat: latitude, lng: longitude},
+// 				map: map
+// 			});
+// 	}
+// }
 
 
 
@@ -252,10 +254,8 @@ function initMap() {
 //     marker.setAnimation(google.maps.Animation.BOUNCE);
 //   }
 // }
-// </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFrjBU54NwKX7dKz4WAB2XocG4PFdRaKY&callback=initMap"
-        async defer>
-        </script>
+// </script> -->
+    
 
 
 

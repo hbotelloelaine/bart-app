@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112023502) do
+ActiveRecord::Schema.define(version: 20160113051623) do
 
   create_table "events", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -21,6 +21,8 @@ ActiveRecord::Schema.define(version: 20160112023502) do
     t.string   "station_id", limit: 255
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.float    "latitude",   limit: 24
+    t.float    "longitude",  limit: 24
   end
 
   create_table "stations", force: :cascade do |t|

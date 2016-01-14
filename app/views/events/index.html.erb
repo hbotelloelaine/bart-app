@@ -1,4 +1,6 @@
-
+<div ng-app="app">
+  <!-- {{ 1 + 1 }} -->
+</div>
 <!-- ==============================================
     HEADER
     =============================================== -->
@@ -77,6 +79,7 @@
             <% end %>
 
 
+    
             
 
           </div>
@@ -92,8 +95,123 @@
       
     </section><!--End event section-->
 
-    <%= link_to "Add New Event", "events/new" %>
-    
+  <%= link_to "Add New Event", "events/new" %>
+
+<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+   
+<div id="map"></div>
+   <script>
+
+
+    var marker;
+ 
+ function initMap() {
+   var map = new google.maps.Map(document.getElementById('map'), {
+     zoom: 10,
+     center: {lat: 38.0188962, lng: -121.9471977}, 
+     mapTypeId: google.maps.MapTypeId.ROADMAP
+   });
+ 
+ 
+  var stationsArray = <%= raw @stations_map %>;
+   for(var i=0; i < stationsArray.length; i++) {
+     var station = stationsArray[i];
+     var latitude = parseFloat(stationsArray[i][0]);
+     var longitude = parseFloat(stationsArray[i][1]);
+     console.log(latitude);
+     console.log(longitude);
+ 
+ 
+       var marker = new google.maps.Marker({
+         position: {lat: latitude, lng: longitude},
+         map: map,
+         icon: "https://m.bart.gov/sites/all/themes/bart_mobile/logo.png"
+       });
+   }
+
+
+
+    //   var map;
+    //   function initMap() {
+    //     map = new google.maps.Map(document.getElementById('map'), {
+    //       center: {lat: 38.0188962, lng: -121.9471977},
+    //       zoom: 10
+    //     });
+
+    //     var stationsArray = <%= raw @stations %>;
+
+    //     for(var i=0; i < stationsArray.length; i++) {
+    //       var station = stationsArray[i];
+    //       var latitude = parseFloat(stationsArray[i][0]);
+    //       var longitude = parseFloat(stationsArray[i][1]);
+    //       console.log(latitude);
+    //       console.log(longitude);
+    //     });
+
+    //     var marker = new google.maps.Marker({
+    //       position: {lat: latitude, lng: longitude},
+    //       map: map,
+    //     });
+
+        // var stationsArray = <%= raw @stations_map %>;
+
+        // for(var i=0; i < stationsArray.length; i++) {
+        //   var station = stationsArray[i];
+        //   var latitude = parseFloat(stationsArray[i][0]);
+        //   var longitude = parseFloat(stationsArray[i][1]);
+        //   console.log(latitude);
+        //   console.log(longitude);
+
+        //   var marker = new google.maps.Marker({
+        //     position: {lat: latitude, lng: longitude},
+        //     map: map
+        //   });
+
+        // });
+
+        };
+    </script>
+
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFrjBU54NwKX7dKz4WAB2XocG4PFdRaKY&callback=initMap"
+    async defer></script>
+
+  
+
+   <!-- <div id="map"></div>
+
+    <script>
+
+    var marker;
+
+function initMap() {
+  var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 10,
+    center: {lat: 38.0188962, lng: -121.9471977}, 
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+
+  var stationsArray = <%= raw @stations_map %>;
+  for(var i=0; i < stationsArray.length; i++) {
+    var station = stationsArray[i];
+    var latitude = parseFloat(stationsArray[i][0]);
+    var longitude = parseFloat(stationsArray[i][1]);
+    console.log(latitude);
+    console.log(longitude);
+
+
+      var marker = new google.maps.Marker({
+        position: {lat: latitude, lng: longitude},
+        map: map
+      });
+  }
+}
+
+ </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFrjBU54NwKX7dKz4WAB2XocG4PFdRaKY&callback=initMap"
+        async defer>
+    </script>
+    -->
     
     <!-- ==============================================
     SERVICES
@@ -108,9 +226,9 @@
         
           <h1 class="section-title">Event</h1>
           
-          <p class="section-description lead">We create awesome Websites and Mobile Apps, the perfect solution for your project.<br/>We don't make designs, we make magic!</p>
+          <p class="section-description lead">We create awesome Websites and Mobile Apps, the perfect solution for your project.<br/>We don't make designs, we make magic!</p> -->
           
-          <div id="map"></div> -->
+          
         <!-- </div> --><!--End section-header -->
 
 

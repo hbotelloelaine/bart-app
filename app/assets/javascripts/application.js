@@ -26,4 +26,6 @@
 //= require theme/respond.min
 //= require theme/respond.src
 //= require theme/style-switcher
+//= require angular
+//= require app
 //= require_tree .

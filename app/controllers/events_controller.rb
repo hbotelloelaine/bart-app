@@ -4,6 +4,12 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     @stations = Station.all
+    @stations_map = []
+    @stations.each do |station|
+      coordinates = [station.latitude.to_s,station.longitude.to_s]
+      @stations_map << coordinates
+    end
+
   #   @stations = []
   #   stations.each do |station|
   #     coordinates = [station.latitude.to_s,station.longitude.to_s]
@@ -22,6 +28,9 @@ end
 
 def create
   @event = Event.new(event_params)
+  coordinates = Geocoder.coordinates(event.place)
+  @event.latitude = coordinates[0]
+  @event.longitude = coordinates[1]
   if @event.save
     flash[:success] = "Event Added"
     redirect_to "/events/#{@event.id}"
