@@ -97,13 +97,13 @@
 
   <%= link_to "Add New Event", "events/new" %>
 
-<%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
    
 <div id="map"></div>
    <script>
 
 
-    var marker;
+    
  
  function initMap() {
    var map = new google.maps.Map(document.getElementById('map'), {
@@ -116,18 +116,36 @@
   var stationsArray = <%= raw @stations_map %>;
    for(var i=0; i < stationsArray.length; i++) {
      var station = stationsArray[i];
-     var latitude = parseFloat(stationsArray[i][0]);
-     var longitude = parseFloat(stationsArray[i][1]);
-     console.log(latitude);
-     console.log(longitude);
+     var station_latitude = parseFloat(stationsArray[i][0]);
+     var station_longitude = parseFloat(stationsArray[i][1]);
+     
  
  
        var marker = new google.maps.Marker({
-         position: {lat: latitude, lng: longitude},
+         position: {lat: station_latitude, lng: station_longitude},
          map: map,
-         icon: "https://m.bart.gov/sites/all/themes/bart_mobile/logo.png"
+         icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/train-metro-icon.png"
        });
    }
+
+
+    var eventsArray = <%= raw @events_coordinates %>;
+    console.log(eventsArray);
+    for(var index=0; index < eventsArray.length; index++) {
+      var a_event = eventsArray[index];
+      var event_latitude = parseFloat(a_event[0]);
+      var event_longitude = parseFloat(a_event[1]);
+      console.log("hello this is " + a_event[0])
+      // console.log(event_latitude);
+      // console.log(event_longitude);
+    
+    var marker2 = new google.maps.Marker({
+         position: {lat: event_latitude, lng: event_longitude},
+         map: map,
+       
+       });
+    }
+
 
 
 
@@ -175,7 +193,11 @@
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFrjBU54NwKX7dKz4WAB2XocG4PFdRaKY&callback=initMap"
     async defer></script>
 
-  
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+
+
+
+
 
    <!-- <div id="map"></div>
 

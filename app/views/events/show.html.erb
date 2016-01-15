@@ -3,7 +3,10 @@
 <h2><%= @event.start_at %></h2>
 <h2><%= @event.end_at %></h2>
 <h2><%= @event.start_at %></h2>
+<% if @event.station %>
+
 <h2><%= @event.station.name %></h2>
+<% end %>
 
 
 
