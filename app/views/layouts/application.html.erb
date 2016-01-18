@@ -11,7 +11,7 @@
         padding: 0;
       }
       #map {
-        height: 1000px !important;
+        height: 800px !important;
       }
     </style>
 
@@ -22,7 +22,7 @@
 		<div id="page-loader"><h1 class='loader-logo'>BARTaround<span><!--  / Creative Studio --></span></h1><span class="page-loader-gif"></span></div>
 		
 		<!--=== BACKGROUND ===-->
-		<div id="backgrounds" data-backgrounds="assets/theme/back_img_1.jpg,assets/theme/back_img_2.jpg,assets/theme/back_img_3.jpg"></div>		<div id="color-overlay"></div>
+		<div id="backgrounds" data-backgrounds="https://upload.wikimedia.org/wikipedia/commons/3/38/Walnut_Creek_BART_-_011.jpg"></div>		<div id="color-overlay"></div>
 	
 		<!-- ==============================================
 		MAIN NAV
@@ -45,10 +45,15 @@
 				<div id="site-nav" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="sr-only">
-							<a href="#home" class="scrollto">Home</a>
+						<li><%= link_to "Home", "/events"%></li>
+						<li><%= link_to "Create Event", "/events/new"%></li>
+						<li><%= link_to "Sign Up", "/users/sign_up"%></li>
+						<li><%= link_to "Sign In", "/users/sign_in"%></li>
+						<li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
+							<!-- <a href="#home" class="scrollto">Home</a>
 						</li>
 						<li>
-							<a href="#services" class="scrollto">Events</a>
+							<a href="#events" class="scrollto">Events</a>
 						</li>
 						<li>
 							<a href="#portfolio" class="scrollto">Stations</a>
@@ -58,7 +63,7 @@
 						</li>
 						<li>
 							<a href="#contact" class="scrollto">Sign-up</a>
-						</li>
+						</li> -->
 					</ul>
 				</div><!--End navbar-collapse -->
 				
@@ -89,6 +94,8 @@
 		</section><!-- End contact section -->
 		       <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
+
+
 		 <%= yield %>
 
 	
@@ -96,7 +103,7 @@
 		<!-- ==============================================
 		FOOTER
 		=============================================== -->	
-		<footer id="main-footer">
+		<!-- <footer id="main-footer">
 		
 			<div class="container">
 			
@@ -115,7 +122,7 @@
 							<li><a class="scrollto" href="#contact">Contact</a></li>
 						</ul>
 						
-					</div>
+					</div> -->
 					
 				</div><!-- End row -->
 				

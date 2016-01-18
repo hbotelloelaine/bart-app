@@ -1,5 +1,5 @@
 class UserEvent < ActiveRecord::Base
-  belongs_to :events
-  belongs_to :users
+  belongs_to :event
+  belongs_to :user
   
 end

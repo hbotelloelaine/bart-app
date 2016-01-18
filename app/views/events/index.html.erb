@@ -8,7 +8,7 @@
     
       <div class="container">
       
-        <img class="img-responsive img-center header-logo" src="assets/theme/drop.png" alt="">
+        <img class="img-responsive img-center header-logo" src="http://simpleicon.com/wp-content/uploads/map-marker-13.png" alt="">
       
         <div class="message-box clearfix">
         
@@ -47,11 +47,18 @@
         
           <h1 class="section-title">Events</h1>
           
-          <p class="section-description lead">Here is where we have two colms that show events related<br/>TRAIN ARRIVALS</p>
+          <p class="section-description lead"></p>
           
           
         </div><!--End section-header -->
-
+  <div class="row">
+      <div class="center">
+        <%= form_tag "/events/search", method: :post do %>
+        <%= label_tag :search %>
+        <%= text_field_tag :search %>
+        <%= submit_tag "Search" %>
+        <% end %>
+      </div>
 
 
       
@@ -125,6 +132,7 @@
          position: {lat: station_latitude, lng: station_longitude},
          map: map,
          icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/train-metro-icon.png"
+       
        });
    }
 
