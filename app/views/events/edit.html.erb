@@ -1,1 +1,53 @@
-<% render "form" %>
+<section>
+  <div class="row">
+    <div class="col-sm-9">
+      <div class="event_single">
+        <ul>
+          <% if @event && @event.errors.any? %>
+          <% @event.errors.full_messages.each do |message| %>
+          <li class="bad-choice"><%= message %></li>
+          <% end %>
+          <% end %>
+        </ul>
+        <h1>Add an Event:</h1>
+
+        <%= form_for @event do |f| %>
+
+        <div class="form-group">
+          <%= f.label :name %>
+          <%=f.text_field :name, class: "form-control" %>
+        </div>
+
+        <div class="form-group">
+          <%= f.label :place %> (address)
+          <%= f.text_field :place, class: "form-control" %>
+        </div>
+        
+        <div class="form-group">
+          <%= f.label :start_at %> 
+
+          <%= f.datetime_select(:start_at, :default => { :hour => 18, :minute => 00 }) %> 
+        </div>
+
+        <div class="form-group">
+          <%= f.label :end_at %> 
+
+          <%= f.datetime_select(:end_at, :default => { :hour => 18, :minute => 00 }) %> 
+        </div>
+
+        <div class="form-group">
+          <%= f.label :url %>
+          <%= f.text_field :url, class: "form-control" %>
+        </div>
+        
+      <div>
+         
+        <%= f.submit %>
+        <% end %>
+   
+
+      </div>
+    </div>
+  </div>
+</div>
+</section>

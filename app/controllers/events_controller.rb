@@ -1,19 +1,20 @@
 
 class EventsController < ApplicationController
-  # before_action :authenticate_admin!
+  before_filter :authenticate_user!, :except => [:show, :index]
+
 
   def index
     @events = Event.all
     @events_coordinates = []
     @events.each_with_index do |event,index|
-      coordinates = [event.latitude.to_s, event.longitude.to_s]
+      coordinates = [event.latitude.to_s, event.longitude.to_s, event.name, event.place, event.url]
       coordinates =
       @events_coordinates << coordinates
     end
     @stations = Station.all
     @stations_map = []
     @stations.each do |station|
-      coordinates = [station.latitude.to_s,station.longitude.to_s]
+      coordinates = [station.latitude.to_s,station.longitude.to_s, station.name]
       @stations_map << coordinates 
     end
   end
@@ -86,7 +87,7 @@ def update
   @event = Event.find_by(id: params[:id])
   @event.update(event_params)
   flash[:success] = "Event Updated"
-  redirect_to "/events/#{event.id}"
+  redirect_to "/events/#{@event.id}"
 end
 
 def destroy 

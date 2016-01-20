@@ -4,3 +4,7 @@
   padding: 10px;
 
 }
+
+.sr-only {
+  background: 808080;
+}

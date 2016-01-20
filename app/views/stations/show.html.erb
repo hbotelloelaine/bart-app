@@ -3,3 +3,116 @@
 <% @station.events.each do |event| %>
 <%= event.name %>
 <% end %>
+
+    <meta name="viewport" content="initial-scale=1.0">
+    <meta charset="utf-8">
+    <style>
+      html, body {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+      }
+      #map {
+        height: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="map"></div>
+    <script>
+      var map;
+      function initMap() {
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: 38.0188962, lng: -121.9471977},
+          zoom: 8
+        });
+
+         map.markers = [];
+        map.eventmarkers = [];
+
+ 
+  var stationsArray = <%= raw @stations_map %>;
+   for(var i=0; i < stationsArray.length; i++) {
+     var station = stationsArray[i];
+     var station_latitude = parseFloat(stationsArray[i][0]);
+     var station_longitude = parseFloat(stationsArray[i][1]);
+     var marker = new google.maps.Marker({
+         position: {lat: station_latitude, lng: station_longitude},
+         map: map,
+         icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/train-metro-icon.png",
+         title: stationsArray[i][2]
+       
+       });
+       map.markers.push(marker);
+   
+   }
+
+   var mywindow = null;
+  /* now inside your initialise function */
+  mywindow = new google.maps.InfoWindow({
+  content: ""
+  });
+  for (var i = 0; i < map.markers.length; i++) {
+    var stationsArray = <%= raw @stations_map %>;
+    google.maps.event.addListener(map.markers[i], 'click', function () {
+      // where I have added .html to the marker object.
+      mywindow.setContent(this.title); // Popup windows for each station
+      mywindow.open(map, this);
+    });
+  }
+  
+
+  var eventsArray = <%= raw @events_coordinates %>;
+    console.log(eventsArray);
+    for(var index=0; index < eventsArray.length; index++) {
+      var a_event = eventsArray[index];
+      var event_latitude = parseFloat(a_event[0]);
+      var event_longitude = parseFloat(a_event[1]);
+      // console.log("hello this is " + a_event[0])
+      // console.log(event_latitude);
+      // console.log(event_longitude);
+    
+
+  // Content inside window for event
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + a_event[2] + '</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Address: </b>' + a_event[3] + '<b></p><p><b> Link: </b><a href=' + a_event[4] + ' >' + a_event[4] + '</a></p> '
+      '</div>'+
+      '</div>';
+
+
+    var marker2 = new google.maps.Marker({
+         position: {lat: event_latitude, lng: event_longitude},
+         map: map,
+         title: contentString
+       
+       });
+    map.eventmarkers.push(marker2);
+
+    }
+   var eventWindow = null;
+  /* now inside your initialise function */
+  eventWindow = new google.maps.InfoWindow({
+  content: ""
+  });
+        for (var i = 0; i < map.eventmarkers.length; i++) {
+    var eventsArray = <%= raw @events_coordinates %>;
+    google.maps.event.addListener(map.eventmarkers[i], 'click', function () {
+      // where I have added .html to the marker object.
+      eventWindow.setContent(this.title); // Popup windows for each station
+      // console.log(contentStrings[i]);
+      console.log(this.title);
+      eventWindow.open(map, this);
+    });
+  }
+
+     
+      }
+
+
+    </script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFrjBU54NwKX7dKz4WAB2XocG4PFdRaKY&callback=initMap"
+    async defer></script>

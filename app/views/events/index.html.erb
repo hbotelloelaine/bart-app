@@ -51,14 +51,7 @@
           
           
         </div><!--End section-header -->
-  <div class="row">
-      <div class="center">
-        <%= form_tag "/events/search", method: :post do %>
-        <%= label_tag :search %>
-        <%= text_field_tag :search %>
-        <%= submit_tag "Search" %>
-        <% end %>
-      </div>
+  
 
 
       
@@ -102,7 +95,7 @@
       
     </section><!--End event section-->
 
-  <%= link_to "Add New Event", "events/new" %>
+  
 
 
    
@@ -119,6 +112,8 @@
      mapTypeId: google.maps.MapTypeId.ROADMAP
    });
  
+ map.markers = [];
+ map.eventmarkers = [];
  
   var stationsArray = <%= raw @stations_map %>;
    for(var i=0; i < stationsArray.length; i++) {
@@ -131,10 +126,32 @@
        var marker = new google.maps.Marker({
          position: {lat: station_latitude, lng: station_longitude},
          map: map,
-         icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/train-metro-icon.png"
+         icon: "http://icons.iconarchive.com/icons/yusuke-kamiyamane/fugue/16/train-metro-icon.png",
+         title: stationsArray[i][2]
        
        });
+       map.markers.push(marker);
+   
    }
+   var stationWindow = null;
+  /* now inside your initialise function */
+  stationWindow = new google.maps.InfoWindow({
+  content: ""
+  });
+  for (var i = 0; i < map.markers.length; i++) {
+    var stationsArray = <%= raw @stations_map %>;
+    google.maps.event.addListener(map.markers[i], 'click', function () {
+      // where I have added .html to the marker object.
+      stationWindow.setContent(this.title); // Popup windows for each station
+      stationWindow.open(map, this);
+    });
+  }
+
+   var eventWindow = null;
+    /* now inside your initialise function */
+    eventWindow = new google.maps.InfoWindow({
+    content: ""
+    });
 
 
     var eventsArray = <%= raw @events_coordinates %>;
@@ -143,16 +160,105 @@
       var a_event = eventsArray[index];
       var event_latitude = parseFloat(a_event[0]);
       var event_longitude = parseFloat(a_event[1]);
-      console.log("hello this is " + a_event[0])
+      console.log(a_event);
+      // console.log("hello this is " + a_event[0])
       // console.log(event_latitude);
       // console.log(event_longitude);
+
+  // Content inside window for event
+  var contentString = '<div id="content">'+
+      '<div id="siteNotice">'+
+      '</div>'+
+      '<h1 id="firstHeading" class="firstHeading">' + a_event[2] + '</h1>'+
+      '<div id="bodyContent">'+
+      '<p><b>Address: </b>' + a_event[3] + '<b></p><p><b> Link: </b><a href=' + a_event[4] + ' >' + a_event[4] + '</a></p> '
+      '</div>'+
+      '</div>';
+
+
     
     var marker2 = new google.maps.Marker({
          position: {lat: event_latitude, lng: event_longitude},
          map: map,
+         title: contentString
        
        });
+    map.eventmarkers.push(marker2);
     }
+
+
+    for (var i = 0; i < map.eventmarkers.length; i++) {
+    var eventsArray = <%= raw @events_coordinates %>;
+    google.maps.event.addListener(map.eventmarkers[i], 'click', function () {
+      // where I have added .html to the marker object.
+      eventWindow.setContent(this.title); // Popup windows for each station
+      // console.log(contentStrings[i]);
+      console.log(this.title);
+      eventWindow.open(map, this);
+    });
+  }
+
+
+    // Content inside window for event
+  // var contentString = '<div id="content">'+
+  //     '<div id="siteNotice">'+
+  //     '</div>'+
+  //     '<h1 id="firstHeading" class="firstHeading">Uluru</h1>'+
+  //     '<div id="bodyContent">'+
+  //     '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+  //     'sandstone rock formation in the southern part of the '+
+  //     'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) '+
+  //     'south west of the nearest large town, Alice Springs; 450&#160;km '+
+  //     '(280&#160;mi) by road. Kata Tjuta and Uluru are the two major '+
+  //     'features of the Uluru - Kata Tjuta National Park. Uluru is '+
+  //     'sacred to the Pitjantjatjara and Yankunytjatjara, the '+
+  //     'Aboriginal people of the area. It has many springs, waterholes, '+
+  //     'rock caves and ancient paintings. Uluru is listed as a World '+
+  //     'Heritage Site.</p>'+
+  //     '<p>Attribution: Uluru, <a href="https://en.wikipedia.org/w/index.php?title=Uluru&oldid=297882194">'+
+  //     'https://en.wikipedia.org/w/index.php?title=Uluru</a> '+
+  //     '(last visited June 22, 2009).</p>'+
+  //     '</div>'+
+  //     '</div>';
+
+  // var infowindow = new google.maps.InfoWindow({
+  //   content: contentString
+  // });
+
+//   function rad(x) {return x*Math.PI/180;}
+// function find_closest_marker() {
+//     var lat = event_latitude;
+//     var lng = event_longitude;
+//     var R = 6371; // radius of earth in km
+//     var distances = [];
+//     var closest = -1;
+//     for( i=0;i<map.markers.length; i++ ) {
+//         var mlat = map.markers[i].position.lat();
+//         var mlng = map.markers[i].position.lng();
+//         var dLat  = rad(mlat - lat);
+//         var dLong = rad(mlng - lng);
+//         var a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+//             Math.cos(rad(lat)) * Math.cos(rad(lat)) * Math.sin(dLong/2) * Math.sin(dLong/2);
+//         var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+//         var d = R * c;
+//         distances[i] = d;
+//         if ( closest == -1 || d < distances[closest] ) {
+//             closest = i;
+//         }
+//     }
+
+// console.log(map.markers);
+//       marker2.addListener('click', function() {
+//         infowindow.open(map, marker2);
+//       });
+//     map.markers[closest].icon = "http://ptv.vic.gov.au/assets/Images/App-images/_resampled/resizedimage3650-Icon-Nov-15_Train-PIN-Icon-RGB.png";
+// }
+
+// find_closest_marker();
+//     map.markers[closest].icon = "http://ptv.vic.gov.au/assets/Images/App-images/_resampled/resizedimage3650-Icon-Nov-15_Train-PIN-Icon-RGB.png";
+// }
+
+// find_closest_marker();
 
 
 

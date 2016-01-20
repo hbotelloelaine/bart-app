@@ -45,11 +45,16 @@
 				<div id="site-nav" class="navbar-collapse collapse">
 					<ul class="nav navbar-nav navbar-right">
 						<li class="sr-only">
-						<li><%= link_to "Home", "/events"%></li>
-						<li><%= link_to "Create Event", "/events/new"%></li>
-						<li><%= link_to "Sign Up", "/users/sign_up"%></li>
-						<li><%= link_to "Sign In", "/users/sign_in"%></li>
-						<li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
+							<li><%= link_to "Home", "/events"%></li>
+							<li><%= link_to "Create Event", "/events/new"%></li>
+							<li><%= link_to "Sign Up", "/users/sign_up"%></li>
+							<li><%= link_to "Sign In", "/users/sign_in"%></li>
+							<li><%= link_to "Log Out", "/users/sign_out", method: :delete %></li>
+							<li><%= form_tag "/events/search", method: :post do %>
+								<%= label_tag :search %>
+								<%= text_field_tag :search %>
+								<%= submit_tag "Search" %>
+								<% end %></li>
 							<!-- <a href="#home" class="scrollto">Home</a>
 						</li>
 						<li>
@@ -92,6 +97,7 @@
 			</div><!-- End container -->
 			
 		</section><!-- End contact section -->
+
 		       <p class="notice"><%= notice %></p>
        <p class="alert"><%= alert %></p>
 

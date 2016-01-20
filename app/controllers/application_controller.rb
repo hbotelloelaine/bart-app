@@ -5,6 +5,15 @@ class ApplicationController < ActionController::Base
   # before_action :authenticate_admin!
   protect_from_forgery with: :exception
 
+
+  def search
+      search_term = params[:search]
+      @stations = Station.where("name LIKE ?", "%#{search_term}%" )
+      @events = Event.where("name LIKE ?", "%#{search_term}%" )
+      redirect_to "/events"
+
+    end
+
   private
 
   # def authenticate_admin!
